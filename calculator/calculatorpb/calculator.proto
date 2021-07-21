@@ -1,0 +1,44 @@
+syntax="proto3";
+
+package calculator;
+option go_package="./calculatorpb";
+
+message NumberRequest{
+    int32 num1=1;
+    int32 num2=2;
+}
+message NumberResponse{
+    int32 result=1;
+}
+message PrimeNumberRequest{
+    int32 num=1;
+}
+message PrimeNumberResponse{
+    int32 result=1;
+}
+message ComputeAverageRequest{
+    int32 num=1;
+}
+message ComputeAverageResponse{
+    int32 result=1;
+}
+message FindMaxRequest{
+    int32 num=1;
+}
+message FindMaxResponse{
+    int32 result=1;
+}
+
+service CalculatorService{
+    //unary
+    rpc Add(NumberRequest) returns (NumberResponse){};
+
+    //Server streaming
+    rpc PrimeNumber(PrimeNumberRequest) returns (stream PrimeNumberResponse){};
+
+    //client Streaming
+    rpc ComputeAverage(stream ComputeAverageRequest) returns (ComputeAverageResponse){}; 
+
+    //BiDi Streaming
+    rpc FindMax(stream FindMaxRequest) returns (stream FindMaxResponse){};
+}
